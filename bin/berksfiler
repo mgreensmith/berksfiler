@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'berksfiler'
+
+options = { :cookbooks => [] }
+
+OptionParser.new do |opts|
+  opts.banner = 'Usage: berksfiler [options]'
+  opts.on('-c', '--cookbooks cookbook1,cookbook2', 'Cookbooks') do |cookbooks|
+    options[:cookbooks] = cookbooks.split(',').map(&:strip)
+  end
+
+  opts.on('-h', '--help', 'Displays Help') do
+    puts opts
+    exit
+  end
+end.parse!
+
+berksfiler = Berksfiler.new
+
+if options[:cookbooks].empty?
+  berksfiler.run
+else
+  options[:cookbooks].each do |cb|
+    berksfiler.emplace_berksfile(cb)
+  end
+end
