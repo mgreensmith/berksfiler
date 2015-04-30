@@ -1,0 +1,21 @@
+---
+cookbooks_root: cookbooks
+sources:
+  git:
+   -
+    name: artifact
+    url: git://github.com/CozyCo/artifact-cookbook.git
+   -
+    name: flapjack
+    url: git://github.com/hw-cookbooks/flapjack.git
+   -
+    name: bluepill
+    url: git://github.com/mgreensmith/bluepill.git
+  path:
+common_cookbooks: # cookbooks to include in every Berksfile even if metadata doesn't specify them
+ - chef-solo-search
+excluded_cookbooks: # local cookbooks for which we should not attempt to overwrite the existing Berksfile
+ - jenkins
+ - rbenv
+ - openldap
+ - openvpn
