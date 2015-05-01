@@ -2,7 +2,12 @@
 cookbooks_root: cookbooks
 common_cookbooks: # cookbooks to include in every Berksfile even if metadata doesn't specify them
  - chef-solo-search
-nonstandard_cookbooks: # cookbooks from special sources or with specific options
+ excluded_cookbooks: # local cookbooks for which we should not attempt to overwrite the existing Berksfile
+ - jenkins
+ - rbenv
+ - openldap
+ - openvpn
+cookbook_options: # cookbooks from special sources or with specific options
  -
   name: artifact
   options: "'>= 9.0.3', github: 'CozyCo/artifact-cookbook'"
@@ -13,8 +18,3 @@ nonstandard_cookbooks: # cookbooks from special sources or with specific options
   name: bluepill
   options: "git: 'git://github.com/mgreensmith/bluepill.git'"
 
-excluded_cookbooks: # local cookbooks for which we should not attempt to overwrite the existing Berksfile
- - jenkins
- - rbenv
- - openldap
- - openvpn

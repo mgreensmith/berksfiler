@@ -14,17 +14,17 @@ module Berksfiler
 
   CONFIG_DEFAULTS = {
     cookbooks_root: 'cookbooks',
-    nonstandard_cookbooks: [],
     common_cookbooks: [],
-    excluded_cookbooks: []
+    excluded_cookbooks: [],
+    cookbook_options: []
   }
 
   def self::cookbooks_root
     Pathname(config.cookbooks_root).expand_path
   end
 
-  def self::nonstandard_cookbooks
-    config.nonstandard_cookbooks
+  def self::cookbook_options
+    config.cookbook_options
   end
 
   def self::common_cookbooks
@@ -52,9 +52,9 @@ module Berksfiler
     @local_cookbooks ||= Dir.entries(cookbooks_root).reject { |dir| dir =~ EXCLUDED_DIRS_REGEX }
   end
 
-  # returns an array of all cookbooks that are not sourced from the community site
-  def self::non_community_cookbooks
-    local_cookbooks + nonstandard_cookbooks.map { |cb| cb['name'] }
+  # returns an array of all cookbooks that have non-default options
+  def self::specific_cookbooks
+    local_cookbooks + cookbook_options.map { |cb| cb['name'] }
   end
 
   # Generate a berksfile and place it in a +cookbook+

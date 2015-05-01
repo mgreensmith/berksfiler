@@ -10,10 +10,10 @@ module Berksfiler
     end
 
     # returns an array of cookbook dependencies for a given cookbook,
-    # limited to cookbooks which are not sourced from the community site
+    # limited to cookbooks which are are local or have specific options
     def self::get_local_deps(cookbook)
       all_deps = get_deps(cookbook)
-      local_cookbooks = Berksfiler.non_community_cookbooks.reject { |cb| cb == cookbook } # don't include self
+      local_cookbooks = Berksfiler.specific_cookbooks.reject { |cb| cb == cookbook } # don't include self
       all_deps.select { |cb| local_cookbooks.include?(cb) }
     end
 
