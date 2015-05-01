@@ -71,7 +71,7 @@ module Berksfiler
   # dependencies and programmatically generate a Berksfile for that cookbook
   # which takes into account the correct sources for all dependencies.
   def self::run
-    local_cookbooks - excluded_cookbooks.each do |cb|
+    (local_cookbooks - excluded_cookbooks).each do |cb|
       emplace_berksfile(cb)
     end
   end
