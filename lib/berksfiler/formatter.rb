@@ -1,30 +1,40 @@
 module Berksfiler
   class Formatter
 
+    # generate the correct Berksfile line for any cookbook
+    def self::cookbook_line(cookbook)
+      return special_cookbook_lines[cookbook] if special_cookbook_lines.key?(cookbook)
+      community_cookbook_line(cookbook)
+    end
+
+    ##############
+
+    # generate a berksfile line for a cookbook with an explicit source location
+    def self::sourced_cookbook_line(cookbook, location)
+      "cookbook '#{cookbook}', #{location}\n" #TODO: fix @ ref
+    end
+
     # generate a berksfile line for a community cookbook
     def self::community_cookbook_line(cookbook)
       "cookbook '#{cookbook}'\n"
     end
 
-    # generate a berksfile line for a git-sourced cookbook
-    def self::git_cookbook_line(cookbook)
-      "cookbook '#{cookbook}', git: '#{@git_cookbook_urls[cookbook]}'\n" #TODO: fix @ ref
-    end
-
-    # generate a berksfile line for a local path-sourced cookbook
-    def self::path_cookbook_line(cookbook)
+    # generate a berksfile line for a local cookbook (within cookbook_root)
+    def self::local_cookbook_line(cookbook)
       "cookbook '#{cookbook}', path: '../#{cookbook}'\n"
     end
 
-    # generate a berksfile line for a cookbook by determining the correct source
-    def self::cookbook_line(cookbook) #TODO: fix all tehse source vars
-      if @git_cookbooks.include?(cookbook)
-      git_cookbook_line(cookbook)
-      elsif @local_cookbooks.include?(cookbook)
-      path_cookbook_line(cookbook)
-      else
-      community_cookbook_line(cookbook)
-      end
+    # a hash of 'name' => '[formatted Berksfile line]' for all non-community cookbooks
+    def self::special_cookbook_lines
+      @special_cookbook_lines ||= generate_special_cookbook_lines
+    end
+
+    # generate a hash of 'name' => '[formatted Berksfile line]'
+    def self::generate_special_cookbook_lines
+      out = {}
+      Berksfiler.local_cookbooks.map {|b| out[b] = local_cookbook_line(b) }
+      Berksfiler.sourced_cookbooks.each { |cb| out[cb['name']] = sourced_cookbook_line(cb['name'], cb['location'])}
+      out
     end
 
     #### DISPLAY HELPERS
@@ -49,7 +59,7 @@ module Berksfiler
       lists.each do |list|
         line = ''
         list.each_with_index do |value, index|
-          line << "#{value.to_s.ljust(maxes[index])}"
+          line << "#{value.to_s.ljust(maxes[index])} "
         end
         out << line.strip
       end

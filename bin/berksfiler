@@ -1,14 +1,19 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'pathname'
 require 'berksfiler'
 
-options = { :cookbooks => [] }
+options = { cookbooks: [], config_file: nil }
 
 OptionParser.new do |opts|
   opts.banner = 'Usage: berksfiler [options]'
-  opts.on('-c', '--cookbooks cookbook1,cookbook2', 'Cookbooks') do |cookbooks|
+  opts.on('-b', '--books COOKBOOK,COOKBOOK', 'Cookbooks for which to generate Berksfiles') do |cookbooks|
     options[:cookbooks] = cookbooks.split(',').map(&:strip)
+  end
+
+  opts.on('-c', '--config-file FILE', 'Path to config file') do |cfile|
+    options[:config_file] = cfile
   end
 
   opts.on('-h', '--help', 'Displays Help') do
@@ -17,12 +22,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-berksfiler = Berksfiler.new
+Berksfiler.load_config( options[:config_file] )
 
 if options[:cookbooks].empty?
-  berksfiler.run
+  Berksfiler.run
 else
   options[:cookbooks].each do |cb|
-    berksfiler.emplace_berksfile(cb)
+    Berksfiler.emplace_berksfile(cb)
   end
 end
