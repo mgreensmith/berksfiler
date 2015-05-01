@@ -73,9 +73,7 @@ Berksfiler should be run from the root of your Chef repository.
 
 ## Example
 
-Given:
-
-1. In the cookbook tree:
+Given a set of local cookbooks:
 ```
 /cookbooks
   /foo
@@ -83,7 +81,7 @@ Given:
   /baz
 ```
 
-2. if `/cookbooks/foo/metadata.rb` contains the following dependencies:
+assuming `/cookbooks/foo/metadata.rb` contains the following dependencies:
 ```
 depends 'artifact'
 depends 'bar'
@@ -92,7 +90,7 @@ depends 'some_public_cookbook'
 depends 'some_other_public_cookbook'
 ```
 
-3. And using the example config file displayed above, running
+and using the example config file displayed above, running:
 ```
 $ berksfiler -b foo
 ```
