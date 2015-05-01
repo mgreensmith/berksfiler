@@ -13,8 +13,8 @@ module Berksfiler
     # limited to cookbooks which are are local or have specific options
     def self::get_local_deps(cookbook)
       all_deps = get_deps(cookbook)
-      local_cookbooks = Berksfiler.specific_cookbooks.reject { |cb| cb == cookbook } # don't include self
-      all_deps.select { |cb| local_cookbooks.include?(cb) }
+      specific_cookbooks = Berksfiler.specific_cookbooks.reject { |cb| cb == cookbook } # don't include self
+      all_deps.select { |cb| specific_cookbooks.include?(cb) }
     end
 
     # generate a full berksfile for a cookbook, including all dependencies with their correct sources.

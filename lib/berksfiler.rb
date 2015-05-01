@@ -6,7 +6,6 @@ require 'berksfiler/generator'
 
 # Berksfiler programmatically generates Berksfiles with correct dependencies
 module Berksfiler
-  extend Configurability
 
   CONFIG_FILE = Pathname('.berksfiler.yml').expand_path
 
