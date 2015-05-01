@@ -1,7 +1,6 @@
 module Berksfiler
   # Methods for formatting data to be emplaced in a Berksfile
   class Formatter
-
     # generate the correct Berksfile line for any cookbook
     def self::cookbook_line(cookbook)
       if special_cookbook_lines.key?(cookbook)
@@ -35,7 +34,7 @@ module Berksfiler
     # given a 2-dimensional array +lists+, return an array of the maximum length of the
     # content for each index of the inner arrays
     def self::array_maxes(lists)
-      lists.reduce([]) do |maxes, list|
+      lists.reduce([]) do |maxes, list| # rubocop:disable Style/EachWithObject
         list.each_with_index do |value, index|
           maxes[index] = [(maxes[index] || 0), value.to_s.length].max
         end

@@ -6,7 +6,6 @@ require 'berksfiler/generator'
 
 # Berksfiler programmatically generates Berksfiles with correct dependencies
 module Berksfiler
-
   CONFIG_FILE = Pathname('.berksfiler.yml').expand_path
 
   EXCLUDED_DIRS_REGEX = /^\./  # reject . and .. directories when globbing the cookbooks dir

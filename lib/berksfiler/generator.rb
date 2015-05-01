@@ -23,18 +23,24 @@ module Berksfiler
     def self::generate_berksfile(cookbook)
       content = ''
       content << BERKSFILE_FRONTMATTER
-
-      common_cookbooks = Berksfiler.common_cookbooks.map { |cb| Formatter.cookbook_line(cb).split(' ') }
-      unless common_cookbooks.empty?
-        content << "# Common dependencies for all Berksfiles\n"
-        content << Formatter.aligned_print(common_cookbooks.sort).join("\n")
-        content << "\n"
-      end
+      content << generate_common_berksfile_section
 
       cookbooks = get_local_deps(cookbook).map { |cb| Formatter.cookbook_line(cb).split(' ') }
       unless cookbooks.empty?
         content << "\n# Dependencies of this cookbook\n"
         content << Formatter.aligned_print(cookbooks.sort).join("\n")
+        content << "\n"
+      end
+      content
+    end
+
+    # generate the 'common dependencies' section of a Berksfile
+    def self::generate_common_berksfile_section
+      content = ''
+      common_cookbooks = Berksfiler.common_cookbooks.map { |cb| Formatter.cookbook_line(cb).split(' ') }
+      unless common_cookbooks.empty?
+        content << "# Common dependencies for all Berksfiles\n"
+        content << Formatter.aligned_print(common_cookbooks.sort).join("\n")
         content << "\n"
       end
       content
