@@ -1,4 +1,5 @@
 module Berksfiler
+  # Methods for formatting data to be emplaced in a Berksfile
   class Formatter
     # generate the correct Berksfile line for any cookbook
     def self::cookbook_line(cookbook)
