@@ -8,7 +8,8 @@ options = { cookbooks: [], config_file: nil }
 
 OptionParser.new do |opts|
   opts.banner = 'Usage: berksfiler [options]'
-  opts.on('-b', '--books COOKBOOK,COOKBOOK', 'Cookbooks for which to generate Berksfiles') do |cookbooks|
+  opts.on('-b', '--books COOKBOOK,COOKBOOK',
+          'Cookbooks for which to generate Berksfiles') do |cookbooks|
     options[:cookbooks] = cookbooks.split(',').map(&:strip)
   end
 

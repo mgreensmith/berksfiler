@@ -8,7 +8,7 @@ require 'berksfiler/generator'
 module Berksfiler
   CONFIG_FILE = Pathname('.berksfiler.yml').expand_path
 
-  EXCLUDED_DIRS_REGEX = /^\./  # reject . and .. directories when globbing the cookbooks dir
+  EXCLUDED_DIRS_REGEX = /^\./  # reject . and .. when globbing the cookbooks dir
 
   CONFIG_DEFAULTS = {
     cookbooks_root: 'cookbooks',
@@ -38,16 +38,19 @@ module Berksfiler
     Configurability.loaded_config
   end
 
-  ### Load the specified +config_file+ and install the config in all objects with Configurability
+  ### Load the specified +config_file+ and install the config
   def self::load_config(config_file = nil)
     config_file ||= CONFIG_FILE
     config = Configurability::Config.load(config_file, CONFIG_DEFAULTS)
     config.install
   end
 
-  # returns an array of all local cookbooks (basically a directory listing of the cookbook_root)
+  # returns an array of all local cookbooks
+  # (basically a directory listing of the cookbook_root)
   def self::local_cookbooks
-    @local_cookbooks ||= Dir.entries(cookbooks_root).reject { |dir| dir =~ EXCLUDED_DIRS_REGEX }
+    @local_cookbooks ||= Dir.entries(cookbooks_root).reject do |dir|
+      dir =~ EXCLUDED_DIRS_REGEX
+    end
   end
 
   # returns an array of all cookbooks that have non-default options
@@ -64,9 +67,9 @@ module Berksfiler
     end
   end
 
-  # for all local cookbooks, excluding `excluded_cookbooks`, calculate all dependencies
-  # and programmatically generate a Berksfile for that cookbook which takes into account
-  # the correct sources for all dependencies.
+  # for all local cookbooks, excluding `excluded_cookbooks`, calculate all
+  # dependencies and programmatically generate a Berksfile for that cookbook
+  # which takes into account the correct sources for all dependencies.
   def self::run
     local_cookbooks - excluded_cookbooks.each do |cb|
       emplace_berksfile(cb)

@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Berksfiler::VERSION
   spec.authors       = ['Matt Greensmith']
   spec.email         = ['matt@mttgreensmith.net']
-  spec.summary       = 'Programatically generates Berksfiles for Chef cookbooks.'
-  spec.description   = 'Programatically generates Berksfiles for Chef cookbooks.'
+  spec.summary       = 'Programatically generate Berksfiles for Chef cookbooks.'
+  spec.description   = spec.summary
   spec.homepage      = ''
   spec.license       = 'MIT'
 
