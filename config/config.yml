@@ -2,16 +2,16 @@
 cookbooks_root: cookbooks
 common_cookbooks: # cookbooks to include in every Berksfile even if metadata doesn't specify them
  - chef-solo-search
-sourced_cookbooks: # cookbooks from special sources
+nonstandard_cookbooks: # cookbooks from special sources or with specific options
  -
   name: artifact
-  location: "git: 'git://github.com/CozyCo/artifact-cookbook.git'"
+  options: "'>= 9.0.3', github: 'CozyCo/artifact-cookbook'"
  -
   name: flapjack
-  location: "git: 'git://github.com/hw-cookbooks/flapjack.git'"
+  options: "git: 'git://github.com/hw-cookbooks/flapjack.git'"
  -
   name: bluepill
-  location: "git: 'git://github.com/mgreensmith/bluepill.git'"
+  options: "git: 'git://github.com/mgreensmith/bluepill.git'"
 
 excluded_cookbooks: # local cookbooks for which we should not attempt to overwrite the existing Berksfile
  - jenkins
