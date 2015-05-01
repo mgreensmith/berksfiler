@@ -1,17 +1,14 @@
 module Berksfiler
   class Formatter
-
     # generate the correct Berksfile line for any cookbook
     def self::cookbook_line(cookbook)
       return special_cookbook_lines[cookbook] if special_cookbook_lines.key?(cookbook)
       community_cookbook_line(cookbook)
     end
 
-    ##############
-
     # generate a berksfile line for a cookbook with an explicit source location
     def self::sourced_cookbook_line(cookbook, location)
-      "cookbook '#{cookbook}', #{location}\n" #TODO: fix @ ref
+      "cookbook '#{cookbook}', #{location}\n"
     end
 
     # generate a berksfile line for a community cookbook
@@ -32,8 +29,8 @@ module Berksfiler
     # generate a hash of 'name' => '[formatted Berksfile line]'
     def self::generate_special_cookbook_lines
       out = {}
-      Berksfiler.local_cookbooks.map {|b| out[b] = local_cookbook_line(b) }
-      Berksfiler.sourced_cookbooks.each { |cb| out[cb['name']] = sourced_cookbook_line(cb['name'], cb['location'])}
+      Berksfiler.local_cookbooks.map { |b| out[b] = local_cookbook_line(b) }
+      Berksfiler.sourced_cookbooks.each { |cb| out[cb['name']] = sourced_cookbook_line(cb['name'], cb['location']) }
       out
     end
 
@@ -65,6 +62,5 @@ module Berksfiler
       end
       out
     end
-
   end
 end

@@ -22,7 +22,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-Berksfiler.load_config( options[:config_file] )
+Berksfiler.load_config(options[:config_file])
 
 if options[:cookbooks].empty?
   Berksfiler.run

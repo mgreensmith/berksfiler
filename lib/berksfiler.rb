@@ -8,7 +8,7 @@ require 'berksfiler/generator'
 module Berksfiler
   extend Configurability
 
-  CONFIG_FILE = Pathname( '.berksfiler.yml' ).expand_path
+  CONFIG_FILE = Pathname('.berksfiler.yml').expand_path
 
   EXCLUDED_DIRS_REGEX = /^\./  # reject . and .. directories when globbing the cookbooks dir
 
@@ -20,7 +20,7 @@ module Berksfiler
   }
 
   def self::cookbooks_root
-    Pathname( config.cookbooks_root ).expand_path
+    Pathname(config.cookbooks_root).expand_path
   end
 
   def self::sourced_cookbooks
@@ -41,16 +41,10 @@ module Berksfiler
   end
 
   ### Load the specified +config_file+ and install the config in all objects with Configurability
-  def self::load_config( config_file=nil )
+  def self::load_config(config_file = nil)
     config_file ||= CONFIG_FILE
-    config = Configurability::Config.load( config_file, CONFIG_DEFAULTS )
+    config = Configurability::Config.load(config_file, CONFIG_DEFAULTS)
     config.install
-  end
-
-  def self::run
-    puts config.inspect
-    puts non_community_cookbooks
-    #puts special_cookbook_lines
   end
 
   # returns an array of all local cookbooks (basically a directory listing of the cookbook_root)
@@ -71,15 +65,13 @@ module Berksfiler
       f << content
     end
   end
-end
 
   # for all local cookbooks, excluding `excluded_cookbooks`, calculate all dependencies
   # and programmatically generate a Berksfile for that cookbook which takes into account
   # the correct sources for all dependencies.
-#  def run
-#    managed_cookbooks = @local_cookbooks.reject { |cb| @config['excluded_cookbooks'].include?(cb) }
-#    managed_cookbooks.each do |cb|
-#      emplace_berksfile(cb)
-#    end
-#  end
-#end
+  def self::run
+    local_cookbooks - excluded_cookbooks.each do |cb|
+      emplace_berksfile(cb)
+    end
+  end
+end
