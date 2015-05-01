@@ -1,5 +1,7 @@
 # Berksfiler
 
+[![Build Status](https://travis-ci.org/mgreensmith/berksfiler.svg)](https://travis-ci.org/mgreensmith/berksfiler)
+
 Berksfiler programatically generates [Berkshelf](http://berkshelf.com/) Berksfiles for your [Chef](https://www.chef.io/) cookbooks.
 
 ## Overview
