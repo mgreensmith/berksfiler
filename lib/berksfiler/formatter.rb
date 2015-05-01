@@ -20,7 +20,7 @@ module Berksfiler
 
       # local cookbooks are discovered from coobooks_root, and are just string names
       Berksfiler.local_cookbooks.map do |cb|
-        @special_cookbook_lines[cb] = "cookbook '#{cookbook}', path: '../#{cookbook}'\n"
+        @special_cookbook_lines[cb] = "cookbook '#{cb}', path: '../#{cb}'\n"
       end
 
       # cookbooks with options are provided as a hash with name: and options: keys
