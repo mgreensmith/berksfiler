@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = spec.summary
   spec.homepage      = ''
   spec.license       = 'MIT'
+  spec.homepage      = "http://github.com/mgreensmith/berksfiler"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.name

@@ -1,6 +1,7 @@
 # Berksfiler
 
 [![Build Status](https://travis-ci.org/mgreensmith/berksfiler.svg)](https://travis-ci.org/mgreensmith/berksfiler)
+[![Gem Version](https://badge.fury.io/rb/berksfiler.png)](http://badge.fury.io/rb/berksfiler)
 
 Berksfiler programatically generates [Berkshelf](http://berkshelf.com/) Berksfiles for your [Chef](https://www.chef.io/) cookbooks.
 
@@ -12,7 +13,7 @@ Berksfiler can iterate through a `/cookbooks` directory and generate a Berksfile
 
 It runs `knife deps` to determine the full dependency tree for a cookbook. It then generates a Berksfile that includes all local cookbook dependencies, as well as any cookbooks with manually-specified options or sources.
 
-You can configure Berksfiler to include specific cookbook dependencies in every Berksfile. This is useful for cookbook dependencies that are used for local development (eg. `chef-solo-seach`) but are not appropriate to include in the metadata of your cookbooks.
+You can configure Berksfiler to include specific cookbook dependencies in every Berksfile. This is useful for cookbook dependencies that are used for local development (eg. `chef-solo-search`) but are not appropriate to include in the metadata of your cookbooks.
 
 ## Requirements
 
